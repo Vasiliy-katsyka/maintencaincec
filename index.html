@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Maintenance</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      background-color: var(--tg-theme-bg-color);
+      color: var(--tg-theme-text-color);
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    
+    h1 {
+      font-size: 25px;
+    }
+    
+    h3 {
+      color: var(--tg-theme-hint-color);
+      font-size: 13px;
+    }
+    
+    a {
+      color: var(--tg-theme-link-color);
+      font-size: 14px;
+      text-decoration: none; 
+    }
+    
+    .maintenance-gif {
+      width: 200px; /* Adjust width as needed */
+      margin-bottom: 20px; 
+      border-radius: 20px;
+    }
+  </style>
+</head>
+<body>
+  <img src="https://s1.gifyu.com/images/SB4Bt.gif" 
+       alt="Loading GIF" 
+       class="maintenance-gif">
+  <h1>Calculating your results...</h1>
+  <h3>We are working hard, come here later. <a href='https://t.me/kviai1'>Learn More ></a></h3>
+  
+
+  <script>
+    // Initialize Telegram Web App
+    const webapp = window.Telegram.WebApp;
+    webapp.ready();
+
+    // Customize and show the Main Button
+    webapp.MainButton.setText('Close');
+    webapp.MainButton.onClick(webapp.close); 
+    webapp.MainButton.show();
+    webapp.MainButton.hasShineEffect = true;
+      </script>
+</body>
+</html>
