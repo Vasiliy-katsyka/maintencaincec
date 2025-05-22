@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,6 +64,7 @@
   
   <h1>Until Opening:</h1>
   <div id="countdownTimer">Loading timer...</div>
+  <div id="targetTimeNote"></div> {/* Added this div for the target time note */}
   
   <h3>We are preparing exciting things for you. <a href='https://t.me/pusikGift'>Learn More ></a></h3>
   
@@ -87,42 +87,28 @@
     const subHeadingElement = document.querySelector('h3');
     const gifElement = document.querySelector('.maintenance-gif');
 
-    function getNextOpeningTimeCET() {
-        const now = new Date();
-        
-        // Simplified DST check for CET/CEST. 
-        // CET is UTC+1, CEST is UTC+2.
-        // European Summer Time typically runs from the last Sunday of March to the last Sunday of October.
-        // This is a month-based approximation.
-        const currentMonth = now.getUTCMonth(); // 0 (Jan) to 11 (Dec)
-        const isLikelySummerTime = (currentMonth >= 3 && currentMonth <= 9); // March (2) to October (9) approx.
-        
-        const targetUTCHour = isLikelySummerTime ? 18 : 19; // 20:00 CEST is 18:00 UTC; 20:00 CET is 19:00 UTC
-
-        let targetDateUTC = new Date(Date.UTC(
-            now.getUTCFullYear(),
-            now.getUTCMonth(),
-            now.getUTCDate(),
-            targetUTCHour, 0, 0, 0
-        ));
-
-        // If target time for today (in UTC) has already passed, set it for tomorrow
-        if (now.getTime() > targetDateUTC.getTime()) {
-            targetDateUTC.setUTCDate(targetDateUTC.getUTCDate() + 1);
-        }
-        return targetDateUTC;
+    // --- TARGET TIME CONFIGURATION ---
+    // Target: 22 May 2025 22:00 CET (Central European Time, UTC+1)
+    // This is equivalent to 22 May 2025, 21:00:00 UTC.
+    // JavaScript months are 0-indexed (January=0, May=4).
+    const targetTimeUTC = Date.UTC(2025, 4, 22, 21, 0, 0); 
+    // Display the target opening time
+    if (targetTimeNoteElement) {
+        targetTimeNoteElement.textContent = 'Opens on: May 22, 2025, 22:00 CET';
     }
+    // --- END TARGET TIME CONFIGURATION ---
 
     function updateCountdown() {
-        const targetTime = getNextOpeningTimeCET();
-        const now = new Date().getTime();
-        const difference = targetTime - now;
+        const now = new Date().getTime(); // Current time in UTC milliseconds
+        const difference = targetTimeUTC - now;
 
         if (difference <= 0) {
             mainHeadingElement.textContent = "We Are Open!";
             countdownElement.textContent = "Please refresh the app.";
             countdownElement.style.fontSize = "20px"; // Adjust size
-            targetTimeNoteElement.style.display = 'none'; // Hide the note
+            if (targetTimeNoteElement) {
+                targetTimeNoteElement.style.display = 'none'; // Hide the note
+            }
             subHeadingElement.innerHTML = "Welcome! <a href='https://t.me/pusikGifts'>Explore Now ></a>";
             // Optional: Change GIF or hide it
             // gifElement.style.display = 'none'; 
