@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>App Opening Soon</title>
+  <title>App Under Maintenance</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
     body {
@@ -20,23 +20,15 @@
     }
     
     h1 {
-      font-size: 25px;
-      margin-bottom: 5px; /* Reduced margin */
+      font-size: 28px;
+      margin-bottom: 10px; 
     }
 
-    #countdownTimer {
-      font-size: 40px; /* Make timer prominent */
-      font-weight: bold;
-      color: var(--tg-theme-text-color); /* Ensure it uses theme color */
-      margin-top: 5px;
-      margin-bottom: 10px;
-    }
-    
-    #targetTimeNote {
-        font-size: 12px;
-        color: var(--tg-theme-hint-color);
-        margin-top: 0;
-        margin-bottom: 20px;
+    p {
+      font-size: 18px;
+      color: var(--tg-theme-text-color);
+      margin-top: 0;
+      margin-bottom: 25px;
     }
 
     h3 {
@@ -51,7 +43,7 @@
     }
     
     .maintenance-gif {
-      width: 180px; /* Slightly smaller if preferred */
+      width: 180px; 
       margin-bottom: 20px; 
       border-radius: 20px;
     }
@@ -62,8 +54,8 @@
        alt="Waiting GIF" 
        class="maintenance-gif">
   
-  <h1>Until Opening:</h1>
-  <div id="countdownTimer">Loading timer...</div>
+  <h1>Maintenance</h1>
+  <p>We will be open soon.</p>
   
   <h3>We are preparing exciting things for you. <a href='https://t.me/pusikGifts'>Learn More ></a></h3>
   
@@ -78,63 +70,6 @@
     webapp.MainButton.onClick(webapp.close); 
     webapp.MainButton.show();
     webapp.MainButton.hasShineEffect = true;
-
-    // Timer Logic
-    const countdownElement = document.getElementById('countdownTimer');
-    const mainHeadingElement = document.querySelector('h1');
-    const targetTimeNoteElement = document.getElementById('targetTimeNote');
-    const subHeadingElement = document.querySelector('h3');
-    const gifElement = document.querySelector('.maintenance-gif');
-
-    // --- TARGET TIME CONFIGURATION ---
-    // Target: 22 May 2025 22:00 CET (Central European Time, UTC+1)
-    // This is equivalent to 22 May 2025, 21:00:00 UTC.
-    // JavaScript months are 0-indexed (January=0, May=4).
-    const targetTimeUTC = Date.UTC(2025, 4, 22, 21, 0, 0); 
-    // Display the target opening time
-    if (targetTimeNoteElement) {
-        targetTimeNoteElement.textContent = 'Opens on: May 22, 2025, 22:00 CET';
-    }
-    // --- END TARGET TIME CONFIGURATION ---
-
-    function updateCountdown() {
-        const now = new Date().getTime(); // Current time in UTC milliseconds
-        const difference = targetTimeUTC - now;
-
-        if (difference <= 0) {
-            mainHeadingElement.textContent = "We Are Open!";
-            countdownElement.textContent = "Please refresh the app.";
-            countdownElement.style.fontSize = "20px"; // Adjust size
-            if (targetTimeNoteElement) {
-                targetTimeNoteElement.style.display = 'none'; // Hide the note
-            }
-            subHeadingElement.innerHTML = "Welcome! <a href='https://t.me/pusikGifts'>Explore Now ></a>";
-            // Optional: Change GIF or hide it
-            // gifElement.style.display = 'none'; 
-            clearInterval(timerInterval);
-            return;
-        }
-
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-        let timerString = "";
-        if (days > 0) {
-            timerString += `${days}d `;
-        }
-        timerString += `${String(hours).padStart(2, '0')}h `;
-        timerString += `${String(minutes).padStart(2, '0')}m `;
-        timerString += `${String(seconds).padStart(2, '0')}s`;
-        
-        countdownElement.textContent = timerString;
-    }
-
-    // Initial call and interval
-    updateCountdown(); // Call once immediately to avoid delay
-    const timerInterval = setInterval(updateCountdown, 1000);
-
   </script>
 </body>
 </html>
